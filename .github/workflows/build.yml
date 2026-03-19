@@ -60,5 +60,10 @@ jobs:
           done
       - name: "Execute Gradle assemble"
         run: "./gradlew assemble${{ matrix.target }}"
+      - name: "Upload APK"
+        uses: actions/upload-artifact@v4
+        with:
+          name: GmsCore-${{ matrix.target }}
+          path: "**/build/outputs/apk/**/*.apk"
       - name: "Execute Gradle lint"
         run: "./gradlew lint${{ matrix.target }}"
