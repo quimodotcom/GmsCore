@@ -1187,7 +1187,19 @@
             android:name="com.google.android.gms.maps.auth.ApiTokenService"
             android:exported="true"/>
 
-        <service android:name="org.microg.gms.DummyService">
+        <service android:name="org.microg.gms.rcs.RcsService" android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.rcs.START" />
+            </intent-filter>
+        </service>
+
+        <service android:name="org.microg.gms.carrierauth.CarrierAuthService" android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.carrierauth.service.START" />
+            </intent-filter>
+        </service>
+
+        <service android:name="org.microg.gms.DummyService" android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.contextmanager.service.ContextManagerService.START" />
                 <action android:name="com.google.android.gms.accounts.ACCOUNT_SERVICE" />
@@ -1276,7 +1288,6 @@
                 <action android:name="com.google.android.gms.plus.service.image.INTENT" />
                 <action android:name="com.google.android.gms.plus.service.internal.START" />
                 <action android:name="com.google.android.gms.plus.service.START" />
-                <action android:name="com.google.android.gms.rcs.START" />
                 <action android:name="com.google.android.gms.romanesco.MODULE_BACKUP_AGENT" />
                 <action android:name="com.google.android.gms.romanesco.service.START" />
                 <action android:name="com.google.android.gms.search.service.SEARCH_AUTH_START" />

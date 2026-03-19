@@ -78,6 +78,15 @@ private val CONFIGURATION_OPTIONS = mapOf(
     "com.google.android.apps.photos" to arrayOf(
         Flag("45617431", true, 0),
     ),
+    "com.google.android.apps.messaging" to arrayOf(
+        Flag("Bugle.rcs_enabled", true, 0),
+        Flag("Bugle.rcs_google_is_enabled", true, 0),
+        Flag("Bugle.rcs_upsell_allowed", true, 0),
+        Flag("Bugle.rcs_tos_flow_enabled", true, 0),
+        Flag("Bugle.rcs_show_settings", true, 0),
+        Flag("Bugle.rcs_is_user_eligible", true, 0),
+        Flag("Bugle.rcs_use_gms_rcs_service", true, 0),
+    ),
 )
 
 class PhenotypeServiceImpl(val packageName: String?) : IPhenotypeService.Stub() {
