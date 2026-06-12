@@ -1,6 +1,5 @@
 name: "Gradle build"
-permissions:
-  contents: read
+permissions: {}
 on:
   - push
   - pull_request
@@ -54,31 +53,12 @@ jobs:
           }
 
           matcher_list | while IFS='' read -r NAME; do
-            if test -f "${matchers_dir:?}/${NAME:?}" ; then
+            if test -f "${matchers_dir:?}/${NAME:?}"; then
               echo "::add-matcher::${matchers_dir:?}/${NAME:?}"
               echo "Matcher configured: ${NAME:?}"
             fi
           done
-      - name: "Generate temporary keystore"
-        run: |
-          keytool -genkey -v -keystore temp.jks -keyalg RSA -keysize 2048 -validity 10000 -alias temp -storepass password -keypass password -dname "CN=microG, OU=microG, O=microG, L=Berlin, ST=Berlin, C=DE"
-          keytool -export -rfc -keystore temp.jks -storepass password -alias temp -file temp.crt
       - name: "Execute Gradle assemble"
-        run: |
-          ./gradlew assemble${{ matrix.target }} \
-            -Pandroid.injected.signing.store.file=$(pwd)/temp.jks \
-            -Pandroid.injected.signing.store.password=password \
-            -Pandroid.injected.signing.key.alias=temp \
-            -Pandroid.injected.signing.key.password=password
+        run: "./gradlew assemble${{ matrix.target }}"
       - name: "Execute Gradle lint"
         run: "./gradlew lint${{ matrix.target }}"
-      - name: "Upload APK artifacts"
-        uses: actions/upload-artifact@v4
-        with:
-          name: gms-core-${{ matrix.target }}-apks
-          path: "**/build/outputs/apk/**/*.apk"
-      - name: "Upload Certificate"
-        uses: actions/upload-artifact@v4
-        with:
-          name: gms-core-${{ matrix.target }}-certificate
-          path: temp.crt
